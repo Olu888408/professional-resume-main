@@ -100,9 +100,56 @@ const projects = [
         'I learned how to effectively prompt, review, and refine AI-generated output, and where human design judgment remains essential in the process.',
     },
   },
+  {
+    title: 'NBA companion app redesign',
+    tags: ['UI/UX', 'Figma', 'Mobile design'],
+    description:
+      'A mobile app concept exploring how to present sports news, scores, and highlights in a clean, scannable dark-themed feed.',
+    image: '/projects/nba-1.png',
+    screenshots: [
+      '/projects/nba-1.png',
+      '/projects/nba-2.png',
+      '/projects/nba-3.png',
+      '/projects/nba-4.png',
+      '/projects/nba-5.png',
+    ],
+    caseStudy: {
+      overview:
+        'A personal Figma project redesigning an NBA companion app, focused on how sports content — stories, scores, and live games — could be organized into a clean, easy-to-scan mobile feed.',
+      problem:
+        'Sports apps often cram too much into one screen. I wanted to practice organizing dense, fast-changing content — top stories, team news, live scores, and schedules — without overwhelming the user.',
+      goals: [
+        'Design a clear content hierarchy for a sports news and scores feed',
+        'Practice a dark-themed mobile UI with strong visual contrast',
+        'Keep navigation between stories, scores, and schedules intuitive',
+      ],
+      role: 'Sole designer — responsible for research, layout, and visual design in Figma.',
+      process: [
+        'Studied how existing sports apps structure their home feeds',
+        'Wireframed a welcome screen, home feed, live scores, and schedule view',
+        'Designed a dark UI with card-based story modules and clear section labels',
+        'Refined spacing and typography for quick scanning on mobile',
+      ],
+      solution:
+        'A five-screen mobile flow: an onboarding welcome screen, a home feed with top stories and team news cards, a live "Watch" view, a scores and schedule screen, and a news alert screen — all in a consistent dark theme.',
+      tools: ['Figma', 'UI/UX design', 'Mobile design'],
+      result:
+        'A cohesive multi-screen mobile concept that demonstrates my ability to organize dense, real-world content into a clear, scannable interface.',
+      learned:
+        'I got more comfortable structuring information-dense screens, using card layouts to group related content, and keeping a dark UI readable through contrast and spacing rather than color alone.',
+    },
+  },
 ]
 
-function ProjectPreview({ index }) {
+function ProjectPreview({ index, image, alt }) {
+  if (image) {
+    return (
+      <div className="h-44 overflow-hidden border-b border-ink-200 bg-ink-100 dark:border-ink-700 dark:bg-ink-800">
+        <img src={image} alt={alt} className="h-full w-full object-cover object-top" loading="lazy" />
+      </div>
+    )
+  }
+
   return (
     <div className="relative flex h-36 items-center justify-center border-b border-ink-200 dark:border-ink-700">
       <div
@@ -163,6 +210,23 @@ function CaseStudyModal({ project, onClose }) {
         </div>
 
         <div className="space-y-7 p-6">
+          {project.screenshots && project.screenshots.length > 0 && (
+            <section>
+              <h4 className="font-display text-sm font-semibold text-ink-900 dark:text-paper">Screens</h4>
+              <div className="mt-3 flex gap-3 overflow-x-auto pb-2">
+                {project.screenshots.map((src, i) => (
+                  <img
+                    key={src}
+                    src={src}
+                    alt={`${project.title} — screen ${i + 1}`}
+                    className="h-72 w-auto shrink-0 border border-ink-200 dark:border-ink-700"
+                    loading="lazy"
+                  />
+                ))}
+              </div>
+            </section>
+          )}
+
           <section>
             <h4 className="font-display text-sm font-semibold text-ink-900 dark:text-paper">Overview</h4>
             <p className="mt-2 text-sm leading-relaxed text-ink-600 dark:text-ink-300">{cs.overview}</p>
@@ -248,7 +312,7 @@ export default function Projects() {
         <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {projects.map((project, i) => (
             <article key={project.title} className="frame flex flex-col overflow-hidden">
-              <ProjectPreview index={i} />
+              <ProjectPreview index={i} image={project.image} alt={project.title} />
               <div className="flex flex-1 flex-col p-5">
                 <h3 className="font-display text-base font-semibold text-ink-900 dark:text-paper">{project.title}</h3>
                 <p className="mt-2.5 flex-1 text-sm leading-relaxed text-ink-500 dark:text-ink-400">{project.description}</p>
