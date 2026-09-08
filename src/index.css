@@ -1,0 +1,145 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light dark;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-paper text-ink-800 dark:bg-ink-950 dark:text-ink-100 font-sans antialiased;
+    margin: 0;
+    min-height: 100vh;
+  }
+
+  ::selection {
+    @apply bg-line-200 text-ink-900;
+  }
+}
+
+@layer components {
+  .section-container {
+    @apply mx-auto w-full max-w-5xl px-5 sm:px-8 lg:px-10;
+  }
+
+  .section-padding {
+    @apply py-16 sm:py-20 lg:py-24;
+  }
+
+  .heading-xl {
+    @apply font-display font-semibold tracking-tight text-4xl sm:text-5xl lg:text-6xl leading-[1.05];
+  }
+
+  .heading-lg {
+    @apply font-display font-semibold tracking-tight text-2xl sm:text-3xl leading-tight;
+  }
+
+  .heading-md {
+    @apply font-display font-semibold tracking-tight text-lg sm:text-xl leading-snug;
+  }
+
+  /* Small mono meta label — sentence case, not tracked all-caps */
+  .meta-label {
+    @apply font-mono text-[13px] text-ink-400 dark:text-ink-300;
+  }
+
+  /* Dimension-line section divider: hairline with a tick at each end */
+  .dim-line {
+    @apply relative h-px w-full bg-ink-200 dark:bg-ink-700;
+  }
+  .dim-line::before,
+  .dim-line::after {
+    content: '';
+    @apply absolute top-1/2 h-2 w-px -translate-y-1/2 bg-ink-200 dark:bg-ink-700;
+  }
+  .dim-line::before { left: 0; }
+  .dim-line::after { right: 0; }
+
+  /* Artboard frame — hairline border with crop-mark corners, no shadow */
+  .frame {
+    @apply relative border border-ink-200 bg-white dark:border-ink-700 dark:bg-ink-900;
+  }
+  .frame::before,
+  .frame::after {
+    content: '';
+    @apply pointer-events-none absolute h-3 w-3 border-line-500 dark:border-line-400;
+  }
+  .frame::before {
+    top: -1px; left: -1px;
+    border-top: 1.5px solid;
+    border-left: 1.5px solid;
+  }
+  .frame::after {
+    bottom: -1px; right: -1px;
+    border-bottom: 1.5px solid;
+    border-right: 1.5px solid;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-[3px] bg-ink-900 px-5 py-2.5 text-sm font-medium text-paper transition-colors duration-150 hover:bg-line-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-line-500 dark:bg-paper dark:text-ink-900 dark:hover:bg-line-100;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-[3px] border border-ink-300 px-5 py-2.5 text-sm font-medium text-ink-700 transition-colors duration-150 hover:border-ink-900 hover:text-ink-900 dark:border-ink-600 dark:text-ink-200 dark:hover:border-paper dark:hover:text-paper focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-line-500;
+  }
+
+  /* Underlined text link — grows the underline on hover instead of adding an arrow */
+  .link-underline {
+    @apply relative inline-flex items-center gap-1.5 text-sm font-medium text-ink-800 dark:text-ink-100;
+  }
+  .link-underline::after {
+    content: '';
+    @apply absolute -bottom-0.5 left-0 h-px w-full origin-left scale-x-0 bg-mark-500 transition-transform duration-200;
+  }
+  .link-underline:hover::after {
+    @apply scale-x-100;
+  }
+
+  .tag {
+    @apply inline-flex items-center rounded-[3px] border border-ink-200 px-2.5 py-1 font-mono text-[12.5px] text-ink-500 dark:border-ink-700 dark:text-ink-300;
+  }
+
+  /* Spec-sheet style input: underline only, no boxed border */
+  .input-field {
+    @apply w-full border-0 border-b border-ink-300 bg-transparent px-0.5 py-2.5 text-sm text-ink-900 placeholder-ink-300 transition-colors focus:border-line-500 focus:outline-none dark:border-ink-600 dark:text-ink-50 dark:placeholder-ink-500;
+  }
+
+  .row-item {
+    @apply flex items-start gap-3 border-b border-ink-100 py-3 last:border-b-0 dark:border-ink-800;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-ink-200 dark:bg-ink-700 rounded-none;
+}
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-line-400 dark:bg-line-600;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
